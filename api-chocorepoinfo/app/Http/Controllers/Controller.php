@@ -36,7 +36,7 @@ class Controller extends BaseController
 
         if ($checkElems!=null)
         {
-
+            return "Already exists";
         }
 
         $obj = new InfoEntry;
@@ -58,7 +58,7 @@ class Controller extends BaseController
 
         if ($checkElems!=null)
         {
-
+            return "Already exists";
         }
 
         $obj = new Upgradable;
