@@ -48,7 +48,7 @@
                       <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dums.length }}</div>
                     </div>
                     <div class="col-auto">
-                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                      <i class="fas fa-laptop-medical fa-2x text-gray-300"></i>
                     </div>
                   </div>
                 </div>
@@ -116,7 +116,7 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                       <div class="dropdown-header">Dropdown Header:</div>
-                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" @click="fetchDUMData">Neu laden</a>
                     </div>
                   </div>
                 </div>
