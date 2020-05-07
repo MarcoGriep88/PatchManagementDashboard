@@ -45,7 +45,7 @@
                   <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                       <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Treiber Updates</div>
-                      <div class="h5 mb-0 font-weight-bold text-gray-800">0 - Keine Informationen vorhanden</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dums.length }}</div>
                     </div>
                     <div class="col-auto">
                       <i class="fas fa-comments fa-2x text-gray-300"></i>
@@ -61,7 +61,7 @@
           <div class="row">
 
             <!-- Area Chart -->
-            <div class="col-xl-12 col-lg-12">
+            <div class="col-xl-7 col-lg-7">
               <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
@@ -83,7 +83,6 @@
                       <table class="table table-striped table-bordered table-responsive" id="myTable" style="width: 100%;">
                       <thead>
                         <tr>
-                          <th>ID</th>
                           <th>Hostname</th>
                           <th>Software</th>
                           <th>Installierte Version</th>
@@ -93,7 +92,6 @@
                       </thead>
                       <tbody>
                       <tr v-for="u in infos">
-                        <th>{{u.id}}</th>
                         <th>{{u.Hostname}}</th>
                         <th>{{u.Software}}</th>
                         <th>{{u.LocalVersion}}</th>
@@ -107,6 +105,45 @@
               </div>
             </div>
 
+            <div class="col-xl-5 col-lg-5">
+              <div class="card shadow mb-4">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Treiber Updates</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <div class="loader" v-if="dumLoader"></div>
+                      <table class="table table-striped table-bordered table-responsive" id="myTabledum" style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>Hostname</th>
+                          <th>Treiber</th>
+                          <th>Verfügbare Version</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="u in dums">
+                        <th>{{u.Hostname}}</th>
+                        <th>{{u.Driver}}</th>
+                        <th>{{u.UpgradeVersion}}</th>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
             <!--
             <div class="col-xl-4 col-lg-5">
               <div class="card shadow mb-4">
@@ -175,7 +212,6 @@
                       <table class="table table-striped table-bordered table-responsive" id="myTablewsus" style="width: 100%;">
                 <thead>
                   <tr>
-                    <th>ID</th>
                     <th>Hostname</th>
                     <th>Betriebssystem</th>
                     <th>Update</th>
@@ -186,7 +222,6 @@
                 </thead>
                 <tbody>
                 <tr v-for="w in wsuses">
-                  <th>{{w.id}}</th>
                   <th>{{w.Computername}}</th>
                   <th>{{w.OS}}</th>
                   <th>{{w.UpdateTitle}}</th>
@@ -264,12 +299,20 @@ export default {
         CreationDate: ''
       },
       wsuses: [],
+      dum: {
+        id: '',
+        Hostname: '',
+        Driver: '',
+        UpgradeVersion: ''
+      },
+      dums: [],
       winfixedcount: 0,
       winnotFixedCount: 0,
       winPercentfixed: 35,
       winPercentNotfixed: 0,
       chocoLoader: true,
-      wsusLoader: true
+      wsusLoader: true,
+      dumLoader: true
     };
   },
   created() {
@@ -284,6 +327,7 @@ export default {
     },
     reload() {
       this.fetchChocoData();
+      this.fetchDUMData();
       this.fetchWSUSData();
     },
     fetchChocoData() {
@@ -300,7 +344,8 @@ export default {
             this.chocoLoader = false;
             sleep(500).then(() => {
                 $('#myTable').DataTable( {
-                  "order": [[ 5, "desc"]],
+                  "order": [[ 4, "desc"]],
+                  "pageLength": 25,
                   "language": {
                       "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
                   }
@@ -322,7 +367,29 @@ export default {
             this.wsusLoader = false;
             sleep(500).then(() => {
                 $('#myTablewsus').DataTable( {
-                  "order": [[ 6, "asc"]],
+                  "order": [[ 5, "asc"]],
+                  "language": {
+                      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+                  }
+                });
+            });
+          });
+      },
+      fetchDUMData() {
+      this.$http.get('http://localhost:8100/')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            const resultArray = [];
+            for (let key in data) {
+              resultArray.push(data[key]);
+            }
+            this.dums = resultArray;
+            this.dumLoader = false;
+            sleep(500).then(() => {
+                $('#myTabledum').DataTable( {
+                  "pageLength": 25,
                   "language": {
                       "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
                   }
