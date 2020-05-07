@@ -1,35 +1,240 @@
 <template>
-      <main class="col-md-9 ml-sm-auto col-lg-10 px-4">
-      <div class="row">
-        <h3>Third Party Updates - Verfügbar: {{ infos.length }}</h3>
-        <hr>
-        <table class="table table-striped table-bordered table-responsive" id="myTable" style="width: 100%;">
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Hostname</th>
-                <th>Software</th>
-                <th>Installierte Version</th>
-                <th>Verfügbare Version</th>
-                <th>Gewichtung</th>
-              </tr>
-            </thead>
-            <tbody>
-            <tr v-for="u in infos">
-              <th>{{u.id}}</th>
-              <th>{{u.Hostname}}</th>
-              <th>{{u.Software}}</th>
-              <th>{{u.LocalVersion}}</th>
-              <th>{{u.UpgradeVersion}}</th>
-              <th v-bind:class="{ 'text-warning': u.Weight > 10, 'text-danger': u.Weight > 100 }">{{u.Weight}}</th>
-            </tr>
-            </tbody>
-          </table>
-      </div>
-      <div class="row">
-          <button class="btn btn-secondary" style="float: right; " @click="fetchData">Neu laden</button>
-      </div>
-          
+      <main>
+        <div class="container-fluid">
+          <div class="row">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-4 mb-4">
+              <div class="card border-left-primary shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">3. Party Patches</div>
+                      <div class="loader" v-if="chocoLoader"></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ infos.length }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fab fa-firefox fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-4 col-md-4 mb-4">
+              <div class="card border-left-success shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Offene Windows Updates</div>
+                      <div class="loader" v-if="wsusLoader"></div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">{{ wsuses.length }}</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fab fa-windows fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pending Requests Card Example -->
+            <div class="col-xl-4 col-md-4 mb-4">
+              <div class="card border-left-warning shadow h-100 py-2">
+                <div class="card-body">
+                  <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                      <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Treiber Updates</div>
+                      <div class="h5 mb-0 font-weight-bold text-gray-800">0 - Keine Informationen vorhanden</div>
+                    </div>
+                    <div class="col-auto">
+                      <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Third Party Updates</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Aktionen:</div>
+                      <a class="dropdown-item" @click="fetchChocoData">Neu laden</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <div class="loader" v-if="chocoLoader"></div>
+                      <table class="table table-striped table-bordered table-responsive" id="myTable" style="width: 100%;">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>Hostname</th>
+                          <th>Software</th>
+                          <th>Installierte Version</th>
+                          <th>Verfügbare Version</th>
+                          <th>Gewichtung</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="u in infos">
+                        <th>{{u.id}}</th>
+                        <th>{{u.Hostname}}</th>
+                        <th>{{u.Software}}</th>
+                        <th>{{u.LocalVersion}}</th>
+                        <th>{{u.UpgradeVersion}}</th>
+                        <th v-bind:class="{ 'text-warning': u.Weight > 10, 'text-danger': u.Weight > 100 }">{{u.Weight}}</th>
+                      </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!--
+            <div class="col-xl-4 col-lg-5">
+              <div class="card shadow mb-4">
+
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Revenue Sources</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-body">
+                  <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                  </div>
+                  <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-primary"></i> Direct
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-success"></i> Social
+                    </span>
+                    <span class="mr-2">
+                      <i class="fas fa-circle text-info"></i> Referral
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            -->
+          </div>
+  
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Windows Updates</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Aktionen:</div>
+                      <a class="dropdown-item" @click="fetchWSUSData">Neu laden</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <div class="loader" v-if="wsusLoader"></div>
+                      <table class="table table-striped table-bordered table-responsive" id="myTablewsus" style="width: 100%;">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Hostname</th>
+                    <th>Betriebssystem</th>
+                    <th>Update</th>
+                    <th>KB</th>
+                    <th>Empfohlene Aktion</th>
+                    <th>Patch Datum</th>
+                  </tr>
+                </thead>
+                <tbody>
+                <tr v-for="w in wsuses">
+                  <th>{{w.id}}</th>
+                  <th>{{w.Computername}}</th>
+                  <th>{{w.OS}}</th>
+                  <th>{{w.UpdateTitle}}</th>
+                  <th>{{w.LegacyName}}</th>
+                  <th>{{w.UpdateApprovalAction}}</th>
+                  <th>{{w.CreationDate}}</th>
+                </tr>
+                </tbody>
+              </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Content Row -->
+
+          <div class="row">
+
+            <!-- Area Chart -->
+            <div class="col-xl-12 col-lg-12">
+              <div class="card shadow mb-4">
+                <!-- Card Header - Dropdown -->
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                  <h6 class="m-0 font-weight-bold text-primary">Historie</h6>
+                  <div class="dropdown no-arrow">
+                    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
+                      <div class="dropdown-header">Dropdown Header:</div>
+                      <a class="dropdown-item" href="#">Action</a>
+                      <a class="dropdown-item" href="#">Another action</a>
+                      <div class="dropdown-divider"></div>
+                      <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                  </div>
+                </div>
+                <!-- Card Body -->
+                <div class="card-body">
+                  <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        <!-- /.container-fluid -->
+        </div>
       </main>
 </template>
 
@@ -45,14 +250,43 @@ export default {
         UpgradeVersion: '',
         Weight: ''
       },
-      infos: []
+      infos: [],
+      wsus: {
+        id: '',
+        UpdateTitle: '',
+        LegacyName: '',
+        SecurityBulletins: '',
+        Computername: '',
+        OS: '',
+        IpAddress: '',
+        UpdateInstallationStatus: '',
+        UpdateApprovalAction: '',
+        CreationDate: ''
+      },
+      wsuses: [],
+      winfixedcount: 0,
+      winnotFixedCount: 0,
+      winPercentfixed: 35,
+      winPercentNotfixed: 0,
+      chocoLoader: true,
+      wsusLoader: true
     };
+  },
+  created() {
+    this.reload();
+  },
+  destroyed() {
+    
   },
   methods: {
     submit() {
       console.log(this.user);
     },
-    fetchData() {
+    reload() {
+      this.fetchChocoData();
+      this.fetchWSUSData();
+    },
+    fetchChocoData() {
       this.$http.get('http://localhost:8090/upgrades')
           .then(response => {
             return response.json();
@@ -63,12 +297,39 @@ export default {
               resultArray.push(data[key]);
             }
             this.infos = resultArray;
+            this.chocoLoader = false;
             sleep(500).then(() => {
-                $('#myTable').DataTable();
+                $('#myTable').DataTable( {
+                  "order": [[ 5, "desc"]],
+                  "language": {
+                      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+                  }
+                });
             });
-            
           });
-    }
+      },
+      fetchWSUSData() {
+      this.$http.get('http://localhost:8095/')
+          .then(response => {
+            return response.json();
+          })
+          .then(data => {
+            const resultArray = [];
+            for (let key in data) {
+              resultArray.push(data[key]);
+            }
+            this.wsuses = resultArray;
+            this.wsusLoader = false;
+            sleep(500).then(() => {
+                $('#myTablewsus').DataTable( {
+                  "order": [[ 6, "asc"]],
+                  "language": {
+                      "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/German.json"
+                  }
+                });
+            });
+          });
+      }
   }
 }
 

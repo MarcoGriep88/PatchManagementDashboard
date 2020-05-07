@@ -16,3 +16,8 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/', 'Controller@index');
+$router->get('/{id}', 'Controller@show_by_id');
+$router->post('/create', 'Controller@create');
+$router->post('/truncate', 'Controller@truncate');

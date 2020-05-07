@@ -28,10 +28,7 @@ class Controller extends BaseController
                 ->where('UpdateInstallationStatus', $request->UpdateInstallationStatus)
                 ->first();
 
-        if ($checkElems!=null)
-        {
-            return "Already exists";
-        }
+        if ($checkElems!=null) { return "Already exists"; }
 
         $obj = new WSUSEntry;
 

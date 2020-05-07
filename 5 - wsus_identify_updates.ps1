@@ -3,12 +3,15 @@
         [string]$wsusserver,
         [int]$port
     )
-    $report = @()
+    #$report = @()
     [void][reflection.assembly]::LoadWithPartialName("Microsoft.UpdateServices.Administration")
     $wsus = [Microsoft.UpdateServices.Administration.AdminProxy]::getUpdateServer($wsusserver,$False,$port)
     $CompSc = new-object Microsoft.UpdateServices.Administration.ComputerTargetScope
     $updateScope = new-object Microsoft.UpdateServices.Administration.UpdateScope; 
     $updateScope.UpdateApprovalActions = [Microsoft.UpdateServices.Administration.UpdateApprovalActions]::Install
+
+    Invoke-RestMethod -Method Post -Uri "http://localhost:8095/truncate"
+
        $updates = $wsus.GetUpdates($updateScope)
            foreach($update in $updates){ 
               $update.GetUpdateInstallationInfoPerComputerTarget($CompSc) | ?{$_.UpdateApprovalAction -eq "Install"} |  % { 
@@ -25,17 +28,16 @@
               $info.UpdateInstallationStatus = $_.UpdateInstallationState
               $info.UpdateApprovalAction = $_.UpdateApprovalAction
               $info.CreationDate = $_.CreationDate
-              $report+=$info 
+
+              $json = $info | ConvertTo-Json
+              Invoke-RestMethod -Method Post -Uri "http://localhost:8095/create" -Body $json -ContentType "application/json"
+
+              #$report+=$info 
             }
          }
       
-    #$report | ?{$_.UpdateInstallationStatus -ne 'NotApplicable' -and $_.UpdateInstallationStatus -ne 'Unknown' -and $_.UpdateInstallationStatus -ne 'Installed' } 
-    #Export-Csv -Path c:\temp\rep_wsus.csv -Append -NoTypeInformation
-
-    foreach($r in $report) {
-         
-    }
+    #$report | ?{$_.UpdateInstallationStatus -ne 'NotApplicable' -and $_.UpdateInstallationStatus -ne 'Unknown' -and $_.UpdateInstallationStatus -ne 'Installed' } | Export-Csv -Path c:\temp\rep_wsus.csv -Append -NoTypeInformation
 
 }
 
-GetUpdateState -wsusserver localhost -port 80
+GetUpdateState -wsusserver QBITC09.BBC.INT -port 80
