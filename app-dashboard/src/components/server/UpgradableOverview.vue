@@ -91,7 +91,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <tr v-for="u in infos">
+                      <tr v-for="u in infos" :key="u.id">
                         <th>{{u.Hostname}}</th>
                         <th>{{u.Software}}</th>
                         <th>{{u.LocalVersion}}</th>
@@ -133,7 +133,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                      <tr v-for="u in dums">
+                      <tr v-for="u in dums" :key="u.id">
                         <th>{{u.Hostname}}</th>
                         <th>{{u.Driver}}</th>
                         <th>{{u.UpgradeVersion}}</th>
@@ -221,7 +221,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                <tr v-for="w in wsuses">
+                <tr v-for="w in wsuses" :key="w.id">
                   <th>{{w.Computername}}</th>
                   <th>{{w.OS}}</th>
                   <th>{{w.UpdateTitle}}</th>
