@@ -2,7 +2,6 @@
       <main>
         <div class="container-fluid">
           <div class="row">
-            <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-4 col-md-4 mb-4">
               <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -20,7 +19,6 @@
               </div>
             </div>
 
-            <!-- Earnings (Monthly) Card Example -->
             <div class="col-xl-4 col-md-4 mb-4">
               <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
@@ -38,7 +36,6 @@
               </div>
             </div>
 
-            <!-- Pending Requests Card Example -->
             <div class="col-xl-4 col-md-4 mb-4">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
@@ -56,14 +53,9 @@
             </div>
           </div>
 
-          <!-- Content Row -->
-
           <div class="row">
-
-            <!-- Area Chart -->
             <div class="col-xl-7 col-lg-7">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Third Party Updates</h6>
                   <div class="dropdown no-arrow">
@@ -76,7 +68,6 @@
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
                     <div class="loader" v-if="chocoLoader"></div>
@@ -147,14 +138,9 @@
            
           </div>
   
-          <!-- Content Row -->
-
           <div class="row">
-
-            <!-- Area Chart -->
             <div class="col-12">
               <div class="card shadow mb-4">
-                <!-- Card Header - Dropdown -->
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                   <h6 class="m-0 font-weight-bold text-primary">Windows Updates</h6>
                   <div class="dropdown no-arrow">
@@ -167,32 +153,31 @@
                     </div>
                   </div>
                 </div>
-                <!-- Card Body -->
                 <div class="card-body">
                   <div class="chart-area">
                     <div class="loader" v-if="wsusLoader"></div>
                       <table class="table table-striped table-bordered table-responsive" id="myTablewsus" style="width: 100%;">
-                <thead>
-                  <tr>
-                    <th>Hostname</th>
-                    <th>Betriebssystem</th>
-                    <th>Update</th>
-                    <th>KB</th>
-                    <th>Empfohlene Aktion</th>
-                    <th>Patch Datum</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <tr v-for="w in wsuses" :key="w.id">
-                  <th>{{w.Computername}}</th>
-                  <th>{{w.OS}}</th>
-                  <th>{{w.UpdateTitle}}</th>
-                  <th>{{w.LegacyName}}</th>
-                  <th>{{w.UpdateApprovalAction}}</th>
-                  <th>{{w.CreationDate}}</th>
-                </tr>
-                </tbody>
-              </table>
+                      <thead>
+                        <tr>
+                          <th>Hostname</th>
+                          <th>Betriebssystem</th>
+                          <th>Update</th>
+                          <th>KB</th>
+                          <th>Empfohlene Aktion</th>
+                          <th>Patch Datum</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                      <tr v-for="w in wsuses" :key="w.id">
+                        <th>{{w.Computername}}</th>
+                        <th>{{w.OS}}</th>
+                        <th>{{w.UpdateTitle}}</th>
+                        <th>{{w.LegacyName}}</th>
+                        <th>{{w.UpdateApprovalAction}}</th>
+                        <th>{{w.CreationDate}}</th>
+                      </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>
