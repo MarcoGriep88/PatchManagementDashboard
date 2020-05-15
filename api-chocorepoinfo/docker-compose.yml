@@ -15,7 +15,7 @@ services:
          build: ./web
          container_name: api-patchmanagement-chocoinfo-lumen-001
          ports:
-             - 8888:80
+             - 10000:80
          volumes:
              - ./web:/var/www
              - ./storage/app:/var/www/storage/app
