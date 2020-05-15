@@ -5,7 +5,7 @@
 
 $chocoAllAvailable = choco search *
 
-Invoke-RestMethod -Method Post -Uri "http://qbitc12.bbc.int:10000/truncate"
+Invoke-RestMethod -Method Post -Uri "http://qbitc11.bbc.int/choco/truncate"
 
 class ChocoAppVersionInfo {
     [string]$Name
@@ -20,5 +20,5 @@ foreach($c in $chocoAllAvailable) {
     Write-host "Name: $($name) - Version: $($version)"
     $obj = @([ChocoAppVersionInfo]@{Name=$name;Version=$version})
     $json = $obj | ConvertTo-Json
-    Invoke-RestMethod -Method Post -Uri "http://qbitc12.bbc.int:10000/create" -Body $json -ContentType "application/json"
+    Invoke-RestMethod -Method Post -Uri "http://qbitc11.bbc.int/choco/create" -Body $json -ContentType "application/json"
 }

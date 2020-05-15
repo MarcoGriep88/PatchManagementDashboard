@@ -1,14 +1,5 @@
 param( 
-    [Parameter(Mandatory=$true,
-            Position=0,
-            ParameterSetName="DeskUpdate Path",
-            ValueFromPipeline=$true,
-            ValueFromPipelineByPropertyName=$true,
-            HelpMessage="Path to location of Ducmd.exe")]
-    [Alias("PSPath")]
-    [ValidateNotNullOrEmpty()]
-    [string]
-    $DeskUpdate
+    [string]$DeskUpdate = "\\qbit66.bb.int\DriverDepot$\Projects\DeskupUpdate-2020-02\DeskUpdate\ducmd.exe"
 )
 
 class DUMInfo {
@@ -24,7 +15,7 @@ $obj = @([DUMInfo]@{Hostname=$hostname;Driver=$Driver;UpgradeVersion=$Version})
 $json = $obj | ConvertTo-Json
 
 
-Invoke-RestMethod -Method Post -Uri "http://localhost:8100/clear" -Body $json -ContentType "application/json"
+Invoke-RestMethod -Method Post -Uri "http://qbitc11.bbc.int/dum/clear" -Body $json -ContentType "application/json"
 
 if ($PSVersionTable.PSVersion.Major -lt 4) {
     Write-Error "Powershell Version 4 required"
@@ -54,7 +45,7 @@ else
 
                 $obj = @([DUMInfo]@{Hostname=$hostname;Driver=$Driver;UpgradeVersion=$Version})
                 $json = $obj | ConvertTo-Json
-                Invoke-RestMethod -Method Post -Uri "http://localhost:8100/create" -Body $json -ContentType "application/json"
+                Invoke-RestMethod -Method Post -Uri "http://qbitc11.bbc.int/dum/create" -Body $json -ContentType "application/json"
             }            
         }
     } else {
