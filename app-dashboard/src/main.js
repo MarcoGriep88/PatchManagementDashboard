@@ -6,9 +6,9 @@ import About from './components/About.vue'
 import Backup from './components/Backup.vue'
 import License from './components/License.vue'
 
-import Header from './components/shared/Header.vue'
-import Sidebar from './components/shared/Sidebar.vue'
-import Footer from './components/shared/Footer.vue'
+import Header from './components/shared/header.vue'
+import Sidebar from './components/shared/sidebar.vue'
+import Footer from './components/shared/footer.vue'
 
 import CustomerOverview from './components/server/UpgradableOverview.vue'
 import BackupOverview from './components/server/BackupOverview.vue'
@@ -37,7 +37,7 @@ const routes = {
 new Vue({
   el: '#app',
   data: {
-    currentRoute: window.location.pathname
+    currentRoute: window.location.pathname,
   },
   computed: {
     ViewComponent () {

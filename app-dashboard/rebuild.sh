@@ -1,3 +1,4 @@
+#npm install @vue/cli-service
 docker stop app-pm-dashboard-vuejs-001
 docker rm app-pm-dashboard-vuejs-001
 npm run build
