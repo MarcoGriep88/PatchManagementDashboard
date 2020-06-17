@@ -256,7 +256,7 @@ export default {
       this.fetchWSUSData();
     },
     fetchChocoData() {
-      this.$http.get('http://localhost:8090/upgrades')
+      this.$http.get('http://api.brandmauer.de/choco/upgrades')
           .then(response => {
             return response.json();
           })
@@ -279,7 +279,7 @@ export default {
           });
       },
       fetchWSUSData() {
-      this.$http.get('http://localhost:8095/')
+      this.$http.get('http://api.brandmauer.de/wsus/')
           .then(response => {
             return response.json();
           })
@@ -301,7 +301,7 @@ export default {
           });
       },
       fetchDUMData() {
-      this.$http.get('http://localhost:8100/')
+      this.$http.get('http://api.brandmauer.de/dum/')
           .then(response => {
             return response.json();
           })
