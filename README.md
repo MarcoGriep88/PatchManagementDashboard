@@ -1,23 +1,15 @@
-# LansweeperChocolateyPatchDashboard
+# Patch Management Dashboard
 
+## What is this
+This Software is a Web Dashboard that will bring more transparency into your Patch Management. This Software combines the Reporting of (in my optinion) three of the best Applications in their Category:
 
-## Infrastruktur
+- Windows Updates with WSUS
+- Third Party Software Rollouts and Updates with Chocolatey
+- Inventory and Reporting for Assets with Lansweeper
+- Driver Updates with Fujitsu Deskupdate Manager (Only Fujitsu Hardware possible)
 
-- api-wsus läuft auf QBITC12 Port 10200
-- api-choco läuft auf QBITC12 Port 10000
-- api-dum läuft auf QBITC12 Port 10100
+## How to use this
+The Software is a set of multiple Web-APIs (Microservices) and Background Scripts that work like little gears with eachother. Each Component is replaceable and optional (In Example: No Fujitsu Hardware? Then you dont need the Microservice of Fujitsu Deskupdate Manager). The Dashboard will show you all the data of the different microservices and give you alot of transparency.
 
-
-DUM Sync script wurde an Interne IT übermittelt zum Sync an: qbitc11.bbc.int/dum und soll auf lansweeper Server laufen.
-
-
-Choco Sync eingerichtet auf -
-DUM Sync eingerichtet auf -
-API Lansweeper eingerichtet auf -
-
-
-Datenbank Sicherungen
-- API-Choco - OK
-- API DUM - OK
-- API WSUS - FEHLT
-- API-Lansweeper - Nicht notwendig
+## Components
+At the current Stage there are multiple components. Each Component has its own Repository on Github and is Open Source. Feel Free to enhance this collection.
