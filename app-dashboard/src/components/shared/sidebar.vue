@@ -14,27 +14,39 @@
 
       <!-- Nav Item - Dashboard -->
       <li class="nav-item active">
-        <a class="nav-link" href="/">
-          <i class="fas fa-fw fa-tachometer-alt"></i>
-          <span>Patch Management</span></a>
+        <router-link :to="{ path: '/patch'}">
+        <a class="nav-link">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Patch Management</span>
+        </a>
+        </router-link>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/license">
+        <router-link :to="{ path: '/drivers'}">
+        <a class="nav-link">
           <i class="far fa-id-badge"></i>
-          <span>License Dashboard</span></a>
+          <span>Driver Management</span>
+        </a>
+        </router-link>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/backup">
+        <router-link :to="{ path: '/backups'}">
+        <a class="nav-link">
           <i class="far fa-hdd"></i>
-          <span>Managed Backup</span></a>
+          <span>Managed Backup</span>
+        </a>
+        </router-link>
       </li>
 
       <li class="nav-item active">
-        <a class="nav-link" href="/about">
+        <router-link :to="{ path: '/about'}">
+        <a class="nav-link">
           <i class="fas fa-info-circle"></i>
-          <span>Info</span></a>
+          <span>Info</span>
+        </a>
+        </router-link>
       </li>
 
       <!-- Divider -->
