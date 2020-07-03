@@ -8,7 +8,7 @@
   }
   .loader:before {
     animation: blueRoute 4s linear infinite;
-    background-color: #09f;
+    background-color: #006AB5;
     content: "";
     height: 5vmin;
     left: 0;
@@ -63,3 +63,12 @@
       transform: translate(0, 0);
     }
   }
+
+.sidebar-brand {
+  background-color: white !important;
+}
+
+.bg-gradient-primary {
+  background-color: #006AB5 !important;
+  background-image: none;
+}

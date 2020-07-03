@@ -3,7 +3,7 @@
   <div id="app">
     <app-sidebar></app-sidebar>
     <!-- Content Wrapper -->
-    <div  class="content-wrapper d-flex flex-column">
+    <div class="content-wrapper d-flex flex-column">
 
       <!-- Main Content -->
       <div class="content">

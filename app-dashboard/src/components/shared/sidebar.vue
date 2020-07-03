@@ -3,10 +3,9 @@
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-        <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
+        <div class="sidebar-brand-icon">
+          <img class="img-fluid" src="https://www.brandmauer.de/hs-fs/hubfs/CD/Bilder/Modulbilder/IT%20DACH/620px_Logo/BRANDMAUER_IT_Logo_DACH_620px_200617.png?width=620&name=BRANDMAUER_IT_Logo_DACH_620px_200617.png"/>
         </div>
-        <div class="sidebar-brand-text mx-3">Cockpit</div>
       </a>
 
       <!-- Divider -->
@@ -25,7 +24,7 @@
       <li class="nav-item active">
         <router-link :to="{ path: '/drivers'}">
         <a class="nav-link">
-          <i class="far fa-id-badge"></i>
+          <i class="fas fa-screwdriver"></i>
           <span>Driver Management</span>
         </a>
         </router-link>
@@ -36,6 +35,15 @@
         <a class="nav-link">
           <i class="far fa-hdd"></i>
           <span>Managed Backup</span>
+        </a>
+        </router-link>
+      </li>
+
+      <li class="nav-item active">
+        <router-link :to="{ path: '/choco'}">
+        <a class="nav-link">
+          <i class="fas fa-ice-cream"></i>
+          <span>Chocolatey Pakete</span>
         </a>
         </router-link>
       </li>

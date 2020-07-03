@@ -2,7 +2,7 @@
       <main>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-xl-4 col-md-4 mb-4">
+            <div class="col-xl-12 col-md-4 mb-12">
               <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                   <div class="row no-gutters align-items-center">
@@ -19,6 +19,7 @@
             </div>
           </div>
 
+          <br/>
           <div class="row">
             <div class="col-xl-12 col-lg-12">
               <div class="card shadow mb-4">
